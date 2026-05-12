@@ -54,7 +54,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <div class="flex flex-wrap gap-2 mb-3">
@@ -73,6 +73,9 @@
 
       <!-- Why Plaits -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">为什么读 Plaits？</h2>
         <div class="callout callout-important mb-6">
           <p class="text-sm text-slate-300">Plaits 的作者 <strong class="text-purple-400">Émilie Gillet</strong> 是 Google 工程师，业余时间开发了整个 Mutable Instruments 模块化合成器产品线。代码质量极高 — 每一行都经过性能和精度的反复推敲。如果你只能读一个 DSP 项目的源码，就选这个。</p>
@@ -262,7 +265,21 @@ private:
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">逐行精读</span>
+          <h4>顶尖 DSP 代码，值得逐行品味</h4>
+          <p>Mutable Instruments 的代码质量在整个开源音频圈公认顶级。Plaits 的弹拨模型、粒子合成展示了"算法即音色"的哲学。是学习 DSP 工程的最佳教材。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">架构借鉴</span>
+          <h4>ARM 优化的定点运算技巧</h4>
+          <p>Plaits 大量使用 SMLAD、QADD 等 DSP 指令。这些底层优化技巧可以被 CMSIS-DSP 替代，但理解原理有助于评估 AI 生成代码的性能。</p>
+        </div>
+        </div>
+      </div></section>
 
       <!-- Key Lessons -->
       <section class="mb-12 fade-in">

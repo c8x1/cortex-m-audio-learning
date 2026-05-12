@@ -58,7 +58,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <span class="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded">阶段六 · 2-3 周</span>
@@ -68,36 +68,38 @@
 
       <!-- 6.1 Low Power -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">6.1 低功耗设计</h2>
-        <p class="text-slate-300 mb-4">智能眼镜必须低功耗。理解 Cortex-M 的睡眠模式、Tickless Idle、外设时钟门控。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">6.1 低功耗设计</h2>
+            <p class="text-slate-300 mb-4">智能眼镜必须低功耗。理解 Cortex-M 的睡眠模式、Tickless Idle、外设时钟门控。</p>
 
-        <div class="overflow-x-auto mb-6">
-          <table class="w-full text-sm border-collapse">
-            <thead>
-              <tr class="border-b border-dark-700 text-left">
-                <th class="p-3 text-slate-400 font-medium">模式</th>
-                <th class="p-3 text-slate-400 font-medium">CPU</th>
-                <th class="p-3 text-slate-400 font-medium">Flash</th>
-                <th class="p-3 text-slate-400 font-medium">外设</th>
-                <th class="p-3 text-slate-400 font-medium">唤醒时间</th>
-                <th class="p-3 text-slate-400 font-medium">典型功耗</th>
-              </tr>
-            </thead>
-            <tbody class="text-slate-300">
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-green-400">Sleep</td><td class="p-3">停止</td><td class="p-3">保持</td><td class="p-3">运行</td><td class="p-3">~1μs</td><td class="p-3">~2mA</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-yellow-400">Stop</td><td class="p-3">停止</td><td class="p-3">保持</td><td class="p-3">停止</td><td class="p-3">~5μs</td><td class="p-3">~20μA</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-red-400">Standby</td><td class="p-3">断电</td><td class="p-3">保持</td><td class="p-3">断电</td><td class="p-3">~50ms</td><td class="p-3">~2μA</td></tr>
-              <tr><td class="p-3 text-red-400">Shutdown</td><td class="p-3">断电</td><td class="p-3">部分保持</td><td class="p-3">断电</td><td class="p-3">~100ms</td><td class="p-3">~0.1μA</td></tr>
-            </tbody>
-          </table>
-        </div>
+            <div class="overflow-x-auto mb-6">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-dark-700 text-left">
+                    <th class="p-3 text-slate-400 font-medium">模式</th>
+                    <th class="p-3 text-slate-400 font-medium">CPU</th>
+                    <th class="p-3 text-slate-400 font-medium">Flash</th>
+                    <th class="p-3 text-slate-400 font-medium">外设</th>
+                    <th class="p-3 text-slate-400 font-medium">唤醒时间</th>
+                    <th class="p-3 text-slate-400 font-medium">典型功耗</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-300">
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-green-400">Sleep</td><td class="p-3">停止</td><td class="p-3">保持</td><td class="p-3">运行</td><td class="p-3">~1μs</td><td class="p-3">~2mA</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-yellow-400">Stop</td><td class="p-3">停止</td><td class="p-3">保持</td><td class="p-3">停止</td><td class="p-3">~5μs</td><td class="p-3">~20μA</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-red-400">Standby</td><td class="p-3">断电</td><td class="p-3">保持</td><td class="p-3">断电</td><td class="p-3">~50ms</td><td class="p-3">~2μA</td></tr>
+                  <tr><td class="p-3 text-red-400">Shutdown</td><td class="p-3">断电</td><td class="p-3">部分保持</td><td class="p-3">断电</td><td class="p-3">~100ms</td><td class="p-3">~0.1μA</td></tr>
+                </tbody>
+              </table>
+            </div>
 
-        <div class="code-walkthrough">
-          <div class="file-header">
-            <span class="file-path">low_power.c — FreeRTOS Tickless Idle 模式</span>
-          </div>
-          <div class="code-block">
-            <pre><code class="language-c">// FreeRTOS Tickless Idle：空闲时进入 Sleep 模式
+            <div class="code-walkthrough">
+              <div class="file-header">
+                <span class="file-path">low_power.c — FreeRTOS Tickless Idle 模式</span>
+              </div>
+              <div class="code-block">
+                <pre><code class="language-c">// FreeRTOS Tickless Idle：空闲时进入 Sleep 模式
 // 在 FreeRTOSConfig.h 中启用：
 // #define configUSE_TICKLESS_IDLE 1
 
@@ -144,26 +146,32 @@ void vPortSuppressTicksAndSleep(TickType_t xExpectedIdleTime) {
     SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
     __enable_irq();
 }</code></pre>
+              </div>
+              <div class="annotation-list">
+                <div class="ann-item">
+                  <span class="ann-num">①</span>
+                  <span><strong>Sleep 模式</strong>最适合音频设备。CPU 停止但 SRAM 和外设保持运行，DMA 仍在工作。唤醒只需 1μs，不影响音频时序。</span>
+                </div>
+                <div class="ann-item">
+                  <span class="ann-num">②③</span>
+                  <span><strong>Tickless Idle</strong>的关键：暂停 1ms 的 SysTick 中断，用更长的唤醒周期替代。这样 CPU 在空闲时不会被 1ms 定时器频繁唤醒，省电。</span>
+                </div>
+                <div class="ann-item">
+                  <span class="ann-num">④</span>
+                  <span><strong>Tick 补偿</strong>：唤醒后必须告诉 RTOS 过了多少时间。否则 FreeRTOS 的超时机制会出错（任务以为只过了 1ms，实际过了 100ms）。</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="annotation-list">
-            <div class="ann-item">
-              <span class="ann-num">①</span>
-              <span><strong>Sleep 模式</strong>最适合音频设备。CPU 停止但 SRAM 和外设保持运行，DMA 仍在工作。唤醒只需 1μs，不影响音频时序。</span>
-            </div>
-            <div class="ann-item">
-              <span class="ann-num">②③</span>
-              <span><strong>Tickless Idle</strong>的关键：暂停 1ms 的 SysTick 中断，用更长的唤醒周期替代。这样 CPU 在空闲时不会被 1ms 定时器频繁唤醒，省电。</span>
-            </div>
-            <div class="ann-item">
-              <span class="ann-num">④</span>
-              <span><strong>Tick 补偿</strong>：唤醒后必须告诉 RTOS 过了多少时间。否则 FreeRTOS 的超时机制会出错（任务以为只过了 1ms，实际过了 100ms）。</span>
-            </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab"><span class="ai-note-badge">人机协作</span><h4>你选择低功耗策略 AI 生成实现</h4><p>音频设备为什么选 Sleep 而不选 Stop？因为 DMA 必须持续运行，1μs 唤醒不会干扰音频时序。你理解策略原因，AI 生成 vPortSuppressTicksAndSleep 实现和 tick 补偿数学。</p></div>
           </div>
         </div>
       </section>
 
       <!-- 6.2 Debug -->
       <section class="mb-12 fade-in">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-2xl font-bold text-white mb-4">6.2 调试技术</h2>
         <p class="text-slate-300 mb-4">嵌入式调试和 OS 开发完全不同。没有 printf（太慢），没有 GDB 远程调试（大多数时候）。掌握 SWD、ITM、DWT。</p>
 
@@ -252,10 +260,12 @@ void hard_fault_handler_c(uint32_t *stack_frame) {
             </div>
           </div>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">不可替代</span><h4>HardFault 诊断只能手动练</h4><p>读 HFSR/CFSR/MMFAR/BFAR，从栈帧提取 PC，用 addr2line 定位源码——AI 无法 attach 你的 SWD 探针。三步诊断法必须练到肌肉记忆。</p></div>
+<div class="ai-note ai-note-collab"><span class="ai-note-badge">人机协作</span><h4>你描述症状 AI 生成 profiling 框架</h4><p>"帮我用 DWT cycle counter 包装所有 DSP 函数"——AI 能生成完整的性能分析框架。但分析结果是你的工程判断。</p></div></div></div></section>
 
       <!-- 6.3 Bootloader & OTA -->
       <section class="mb-12 fade-in">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-2xl font-bold text-white mb-4">6.3 Bootloader 与 OTA 固件更新</h2>
         <p class="text-slate-300 mb-4">智能音频设备必须支持 OTA（Over-The-Air）升级。理解双 Bank Flash、MCUboot、BLE DFU。</p>
 
@@ -282,10 +292,11 @@ graph TB
         <div class="callout callout-tip mt-4">
           <p class="text-sm text-slate-300"><strong class="text-green-400">实际项目：</strong><a href="../projects/infinitime.html" class="text-blue-400 underline">InfiniTime</a> 实现了完整的 BLE DFU OTA。它使用 MCUboot + 双 Bank 方案。阅读它的 Bootloader 代码可以看到真实的 OTA 实现。</p>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">不可替代</span><h4>双 Bank 安全回滚是安全关键设计</h4><p>OTA 更新失败不能 brick 设备。AI 可以写代码，但只有你能确保：失败永远回滚，设备永远有合法固件可启动。</p></div></div></div></section>
 
       <!-- 6.4 Memory Optimization -->
       <section class="mb-12 fade-in">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-2xl font-bold text-white mb-4">6.4 内存优化</h2>
         <p class="text-slate-300 mb-4">音频设备 RAM 紧张（通常 128-512KB）。音频缓冲区就占掉很多，必须精打细算。</p>
 
@@ -338,7 +349,8 @@ float32_t cmsis_fft_buf[512];              // FFT 工作缓冲区</code></pre>
         <div class="callout callout-warning mt-4">
           <p class="text-sm text-slate-300"><strong class="text-yellow-400">内存优化技巧：</strong>① 用 <code>const</code> 让编译器把只读数据放 Flash；② DMA 缓冲区放 SRAM，CPU 频繁访问的查找表放 CCMRAM；③ 音频缓冲区复用（录音和播放不用同一时间）；④ 使用 <code>-Os</code> 编译选项优化代码大小。</p>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">不可替代</span><h4>全局 RAM 分配需要系统视角</h4><p>1KB DMA RX + 30KB FreeRTOS + 16KB BLE + 115KB LVGL = 超了！内存预算分配是系统级工程，AI 无法平衡这些权衡。</p></div>
+<div class="ai-note ai-note-collab"><span class="ai-note-badge">人机协作</span><h4>你规划分区策略 AI 生成实现</h4><p>"DSP 系数表放 CCMRAM，DMA buffer 放 SRAM"——你描述分区策略，AI 生成 __attribute__ 和 linker section。</p></div></div></div></section>
 
       <!-- Related Projects -->
       <section class="mb-12 fade-in">

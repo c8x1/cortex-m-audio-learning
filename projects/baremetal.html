@@ -50,7 +50,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Project Overview Card -->
       <div class="fade-in mb-10">
@@ -71,6 +71,7 @@
 
       <!-- Memory Layout Diagram -->
       <section class="fade-in mb-10">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-xl font-bold text-white mb-4">内存布局</h2>
         <p class="text-slate-400 text-sm mb-4">理解链接脚本前，先看看 Cortex-M 的物理内存是怎么组织的。Flash 存放代码和常量，RAM 存放运行时变量和栈。</p>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
@@ -274,7 +275,8 @@ SECTIONS
             <li class="flex gap-2"><span class="text-blue-400 font-bold">5.</span> 栈顶设在 RAM 末尾（向下生长），堆从 .bss 之后向上生长，两者相向而行</li>
           </ul>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">逐行精读</span><h4>寄存器直接操作是调试基础</h4><p>HAL/LL 库封装了寄存器操作，但调试 clock tree 或 DMA 时能读懂裸机代码是必要能力。</p></div>
+<div class="ai-note ai-note-auto"><span class="ai-note-badge">了解即可</span><h4>UART/GPIO 初始化可跳过</h4><p>基础串口和 GPIO 配置是 AI 最擅长的领域。专注于时钟树和中断配置部分。</p></div></div></div></section>
 
       <!-- Navigation -->
       <div class="fade-in flex items-center justify-between mt-12 pt-6 border-t border-dark-700">

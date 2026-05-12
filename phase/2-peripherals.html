@@ -59,7 +59,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <span class="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded">阶段二 · 2-3 周</span>
@@ -69,6 +69,9 @@
 
       <!-- 2.1 GPIO -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">2.1 GPIO — 万物之始</h2>
         <p class="text-slate-300 mb-4">GPIO（通用输入输出）是控制外部硬件的基础。音频设备中 GPIO 用于：Codec 芯片复位、LED 指示、按键输入、Mute 控制等。</p>
 
@@ -128,10 +131,23 @@ void codec_reset(void) {
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-auto">
+          <span class="ai-note-badge">可淡化</span>
+          <h4>位操作样板 AI 写得又快又对</h4>
+          <p>GPIO 翻转、Mute 控制这些 MODER/BSRR 位操作是标准样板。描述清楚"哪个 pin 做什么"，AI 生成代码又快又对。你的精力放在理解 pin mux 的全局规划上。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 2.2 I2C -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">2.2 I2C — Codec 配置总线</h2>
         <p class="text-slate-300 mb-4">I2C 用于配置音频 Codec 芯片的参数（采样率、增益、滤波器等）。不是传输音频数据 — 那是 I2S/SAI 的工作。</p>
 
@@ -171,10 +187,23 @@ sequenceDiagram
             </ul>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">人机协作</span>
+          <h4>你描述 Codec 寄存器序列，AI 生成配置代码</h4>
+          <p>你告诉 AI："CS43L22，复位后设 PowerCtl=0x01, Format=I2S 16bit, Headphone 软 unmute"——AI 生成完整的 I2C 写序列。但你必须理解控制面和数据面的区别。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 2.3 SPI -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">2.3 SPI — 高速数据传输</h2>
         <p class="text-slate-300 mb-4">SPI 用于驱动显示屏（LVGL UI）、Flash 存储、传感器等。全双工，速度可达数十 MHz。在音频智能眼镜中，SPI 可能连接显示驱动和 IMU 传感器。</p>
 
@@ -214,10 +243,23 @@ void spi_lcd_send_dma(const uint8_t *data, uint16_t len) {
         <div class="callout callout-tip mt-4">
           <p class="text-sm text-slate-300"><strong class="text-green-400">实际项目：</strong><a href="../projects/infinitime.html" class="text-blue-400 underline">InfiniTime</a> 项目用 SPI 驱动 ST7789 显示屏（240×240）。结合 DMA 实现无阻塞刷新。阅读它的 <code>St7789.cpp</code> 可以看到完整的 SPI LCD 驱动。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-auto">
+          <span class="ai-note-badge">可淡化</span>
+          <h4>显示驱动初始化是标准样板</h4>
+          <p>ST7789 等 LCD 驱动的 SPI 初始化序列高度标准化。CubeMX 或 AI 都能生成。值得理解的是 DMA 传输模式对帧率的影响。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 2.4 I2S / SAI — 核心 -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">2.4 I2S / SAI — 音频数据核心接口</h2>
         <p class="text-slate-300 mb-4">这是音频开发最关键的外设。I2S（Inter-IC Sound）是数字音频的标准传输协议。STM32 的 SAI（Serial Audio Interface）是 I2S 的增强版。</p>
 
@@ -315,10 +357,28 @@ HAL_StatusTypeDef audio_play_start(int16_t *buffer, uint32_t size) {
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">不可替代</span>
+          <h4>时钟数学必须内化</h4>
+          <p>256×FS = 12.288MHz——为什么标准 PLL 无法精确产生这个频率？时钟关系算错 = Codec 静默，不报任何异常。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">人机协作</span>
+          <h4>你指定参数 AI 生成 SAI 配置</h4>
+          <p>你描述"I2S Philips 格式，32bit frame，16bit data，Master 模式"，AI 生成 SAI_InitTypeDef 全部字段。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 2.5 PDM -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">2.5 PDM — 数字麦克风接口</h2>
         <p class="text-slate-300 mb-4">MEMS 数字麦克风输出 PDM（脉冲密度调制）信号。需要硬件滤波器或 CMSIS-DSP 的 PDM 转 PCM 库将其转换为标准 PCM 音频数据。智能眼镜的麦克风通常用 PDM。</p>
 
@@ -360,10 +420,26 @@ void pdm_to_pcm(uint8_t *pdm_buf, int16_t *pcm_out) {
         <div class="callout callout-info mt-4">
           <p class="text-sm text-slate-300"><strong class="text-blue-400">智能眼镜中的麦克风：</strong>典型的助听器/智能眼镜用 2-4 个 MEMS PDM 麦克风做波束成形和降噪。nRF5340 有硬件 PDM 外设，可以直接接收 PDM 数据。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">人机协作</span>
+          <h4>你指定参数 AI 生成管线</h4>
+          <p>"2 个 MEMS 麦克风，16kHz 输出，PDM 时钟 1.024MHz"——描述清楚后 AI 能生成完整的 CMSIS-DSP 配置。</p>
+        </div>
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">不可替代</span>
+          <h4>Decimation 比率影响音质</h4>
+          <p>PDM 时钟 1MHz decimation 64 倍 = 15.6kHz 有效带宽。这个比率决定了你的麦克风能录到什么。这是信号处理的物理约束。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 2.6 Clock Tree -->
       <section class="mb-12 fade-in">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-2xl font-bold text-white mb-4">2.6 时钟树 — 音频的心跳</h2>
         <p class="text-slate-300 mb-4">音频系统对时钟精度极其敏感。48kHz 采样率意味着每 20.83μs 必须精确地处理一个采样。时钟树的配置直接决定音频质量。</p>
 
@@ -385,7 +461,7 @@ graph TD
         <div class="callout callout-warning mt-4">
           <p class="text-sm text-slate-300"><strong class="text-yellow-400">为什么需要专门的音频 PLL？</strong>标准 PLL 产生 168MHz 系统时钟，但 48kHz × 256 = 12.288MHz 无法从 168MHz 整数分频得到。STM32 提供独立的 PLLI2S，可以灵活配置乘法因子 N 和分频因子 R 来精确产生音频主时钟。</p>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">不可替代</span><h4>PLLI2S 分频比必须一次算对</h4><p>N/M/R 三个参数需要整数运算精确匹配目标频率。算错 = Codec 静默，不报错不 HardFault，就是没声音。这种 bug AI 帮不了你调试。</p></div></div></div></section>
 
       <!-- Related Projects -->
       <section class="mb-12 fade-in">

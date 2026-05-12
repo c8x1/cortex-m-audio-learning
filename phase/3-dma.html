@@ -59,7 +59,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <span class="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded">阶段三 · 1-2 周</span>
@@ -69,42 +69,55 @@
 
       <!-- 3.1 DMA 基础 -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">3.1 为什么音频必须用 DMA？</h2>
-        <p class="text-slate-300 mb-4">48kHz 采样率意味着每秒 48000 次数据传输。如果用 CPU 中断方式，每 20.83μs 就要进一次中断 — CPU 几乎没时间做 DSP 处理。DMA 可以完全独立地搬运数据。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">3.1 为什么音频必须用 DMA？</h2>
+            <p class="text-slate-300 mb-4">48kHz 采样率意味着每秒 48000 次数据传输。如果用 CPU 中断方式，每 20.83μs 就要进一次中断 — CPU 几乎没时间做 DSP 处理。DMA 可以完全独立地搬运数据。</p>
 
-        <div class="grid md:grid-cols-2 gap-4 mb-6">
-          <div class="bg-dark-800 rounded-lg p-4 border border-red-500/30">
-            <h3 class="text-red-400 font-semibold mb-2">中断方式（不推荐）</h3>
-            <div class="text-sm text-slate-300 space-y-1">
-              <p>每 20.83μs 进一次中断</p>
-              <p>中断开销 ~2μs (入栈/出栈)</p>
-              <p>CPU 占用率 ~10% 仅为搬运数据</p>
-              <p class="text-red-400">没有时间做复杂 DSP</p>
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-dark-800 rounded-lg p-4 border border-red-500/30">
+                <h3 class="text-red-400 font-semibold mb-2">中断方式（不推荐）</h3>
+                <div class="text-sm text-slate-300 space-y-1">
+                  <p>每 20.83μs 进一次中断</p>
+                  <p>中断开销 ~2μs (入栈/出栈)</p>
+                  <p>CPU 占用率 ~10% 仅为搬运数据</p>
+                  <p class="text-red-400">没有时间做复杂 DSP</p>
+                </div>
+              </div>
+              <div class="bg-dark-800 rounded-lg p-4 border border-green-500/30">
+                <h3 class="text-green-400 font-semibold mb-2">DMA 方式（推荐）</h3>
+                <div class="text-sm text-slate-300 space-y-1">
+                  <p>每 5.3ms（256 samples）进一次中断</p>
+                  <p>中断开销极小（只设标志/发通知）</p>
+                  <p>CPU 占用率 ~0%（DMA 搬运）</p>
+                  <p class="text-green-400">99% CPU 时间留给 DSP</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout callout-info">
+              <p class="text-sm text-slate-300"><strong class="text-blue-400">类比：</strong>DMA 就像雇了一个快递员帮你搬箱子。你（CPU）只需要在箱子上贴好标签（配置 DMA），告诉快递员从哪搬到哪，然后你就可以专心做 DSP 了。快递员搬完一批会通知你。</p>
             </div>
           </div>
-          <div class="bg-dark-800 rounded-lg p-4 border border-green-500/30">
-            <h3 class="text-green-400 font-semibold mb-2">DMA 方式（推荐）</h3>
-            <div class="text-sm text-slate-300 space-y-1">
-              <p>每 5.3ms（256 samples）进一次中断</p>
-              <p>中断开销极小（只设标志/发通知）</p>
-              <p>CPU 占用率 ~0%（DMA 搬运）</p>
-              <p class="text-green-400">99% CPU 时间留给 DSP</p>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>CPU 占用率对比是架构思维</h4>
+              <p>48kHz 16bit 立体声 DMA 传输只占 CPU 0.5%，手动搬运会占 30%+——这组数据决定了系统可行性。在开始写代码之前，你必须能用这种定量思维评估方案。AI 可以生成 DMA 代码，但无法帮你做"这个方案行不行"的判断。</p>
             </div>
           </div>
-        </div>
-
-        <div class="callout callout-info">
-          <p class="text-sm text-slate-300"><strong class="text-blue-400">类比：</strong>DMA 就像雇了一个快递员帮你搬箱子。你（CPU）只需要在箱子上贴好标签（配置 DMA），告诉快递员从哪搬到哪，然后你就可以专心做 DSP 了。快递员搬完一批会通知你。</p>
         </div>
       </section>
 
       <!-- 3.2 Ping-Pong Double Buffering -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">3.2 Ping-Pong 双缓冲 — 音频核心模式</h2>
-        <p class="text-slate-300 mb-4">这是音频 DMA 最重要的概念。CPU 和 DMA 交替使用两块缓冲区，实现无间断音频流。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">3.2 Ping-Pong 双缓冲 — 音频核心模式</h2>
+            <p class="text-slate-300 mb-4">这是音频 DMA 最重要的概念。CPU 和 DMA 交替使用两块缓冲区，实现无间断音频流。</p>
 
-        <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
-          <pre class="mermaid">
+            <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
+              <pre class="mermaid">
 sequenceDiagram
     participant DMA as DMA 控制器
     participant BUF as 音频缓冲区
@@ -119,15 +132,15 @@ sequenceDiagram
     CPU->>BUF: 处理 Pong 数据 (DSP)
     DMA->>BUF: 循环回到 Ping 开头
     Note over DMA,CPU: 循环往复，永不间断
-          </pre>
-        </div>
+              </pre>
+            </div>
 
-        <div class="code-walkthrough">
-          <div class="file-header">
-            <span class="file-path">audio_dma.c — Ping-Pong 双缓冲实现</span>
-          </div>
-          <div class="code-block">
-            <pre><code class="language-c">// 音频缓冲区定义
+            <div class="code-walkthrough">
+              <div class="file-header">
+                <span class="file-path">audio_dma.c — Ping-Pong 双缓冲实现</span>
+              </div>
+              <div class="code-block">
+                <pre><code class="language-c">// 音频缓冲区定义
 #define AUDIO_BUF_SIZE  512   // 总缓冲区大小（sample 数）
 #define HALF_BUF_SIZE   256   // 半缓冲区 = 一个 ping 或 pong 块
 
@@ -184,23 +197,32 @@ void my_audio_process(int16_t *in, int16_t *out, uint32_t size) {
     // arm_biquad_cascade_df1_f32(&eq_instance, float_in, float_out, size);
     // arm_fir_f32(&fir_instance, float_in, float_out, size);
 }</code></pre>
+              </div>
+              <div class="annotation-list">
+                <div class="ann-item">
+                  <span class="ann-num">①</span>
+                  <span><strong>Circular 模式</strong>是关键。DMA 到达缓冲区末尾后自动回到开头继续传输，不需要软件干预。这就是 "环形缓冲区" 的硬件实现。</span>
+                </div>
+                <div class="ann-item">
+                  <span class="ann-num">②</span>
+                  <span><strong>HalfCplt</strong> = Ping 块就绪。DMA 正在填充 Pong，CPU 安全访问 Ping。时序保证：CPU 必须在 DMA 填完 Pong 之前处理完 Ping。</span>
+                </div>
+                <div class="ann-item">
+                  <span class="ann-num">③</span>
+                  <span><strong>Cplt</strong> = Pong 块就绪。DMA 循环回 Ping 开头，CPU 安全访问 Pong。两个回调交替触发，形成 "乒乓" 节奏。</span>
+                </div>
+                <div class="ann-item">
+                  <span class="ann-num">④</span>
+                  <span><strong>实时约束</strong>：DSP 处理必须在半个缓冲区时间内完成。256 samples / 48kHz = 5.33ms。如果处理时间超过这个值，就会 underrun → 咔嗒声。</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="annotation-list">
-            <div class="ann-item">
-              <span class="ann-num">①</span>
-              <span><strong>Circular 模式</strong>是关键。DMA 到达缓冲区末尾后自动回到开头继续传输，不需要软件干预。这就是 "环形缓冲区" 的硬件实现。</span>
-            </div>
-            <div class="ann-item">
-              <span class="ann-num">②</span>
-              <span><strong>HalfCplt</strong> = Ping 块就绪。DMA 正在填充 Pong，CPU 安全访问 Ping。时序保证：CPU 必须在 DMA 填完 Pong 之前处理完 Ping。</span>
-            </div>
-            <div class="ann-item">
-              <span class="ann-num">③</span>
-              <span><strong>Cplt</strong> = Pong 块就绪。DMA 循环回 Ping 开头，CPU 安全访问 Pong。两个回调交替触发，形成 "乒乓" 节奏。</span>
-            </div>
-            <div class="ann-item">
-              <span class="ann-num">④</span>
-              <span><strong>实时约束</strong>：DSP 处理必须在半个缓冲区时间内完成。256 samples / 48kHz = 5.33ms。如果处理时间超过这个值，就会 underrun → 咔嗒声。</span>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>双缓冲心智模型是音频核心</h4>
+              <p>DMA 填 Ping 时 CPU 处理 Pong，然后交换。HalfCplt 回调在缓冲区前半就绪时触发——这个心智模型不理解，就无法调试 underrun。underrun 的表现是"音频有咔嗒声"，代码里没有任何明显错误。</p>
             </div>
           </div>
         </div>
@@ -208,38 +230,56 @@ void my_audio_process(int16_t *in, int16_t *out, uint32_t size) {
 
       <!-- 3.3 Buffer Size & Latency -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">3.3 缓冲区大小与延迟</h2>
-        <p class="text-slate-300 mb-4">缓冲区大小直接决定音频延迟。这是音频系统最重要的设计参数之一。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">3.3 缓冲区大小与延迟</h2>
+            <p class="text-slate-300 mb-4">缓冲区大小直接决定音频延迟。这是音频系统最重要的设计参数之一。</p>
 
-        <div class="overflow-x-auto mb-6">
-          <table class="w-full text-sm border-collapse">
-            <thead>
-              <tr class="border-b border-dark-700 text-left">
-                <th class="p-3 text-slate-400 font-medium">半缓冲区</th>
-                <th class="p-3 text-slate-400 font-medium">48kHz 延迟</th>
-                <th class="p-3 text-slate-400 font-medium">16kHz 延迟</th>
-                <th class="p-3 text-slate-400 font-medium">DSP 时间</th>
-                <th class="p-3 text-slate-400 font-medium">适用场景</th>
-              </tr>
-            </thead>
-            <tbody class="text-slate-300">
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">32 samples</td><td class="p-3 text-green-400">0.67ms</td><td class="p-3">2.0ms</td><td class="p-3 text-red-400">很紧</td><td class="p-3">专业音频/ANC</td></tr>
-              <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono">64 samples</td><td class="p-3 text-green-400">1.33ms</td><td class="p-3">4.0ms</td><td class="p-3 text-yellow-400">适中</td><td class="p-3">低延迟音乐处理</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">128 samples</td><td class="p-3">2.67ms</td><td class="p-3">8.0ms</td><td class="p-3 text-green-400">充裕</td><td class="p-3">语音处理</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">256 samples</td><td class="p-3">5.33ms</td><td class="p-3">16.0ms</td><td class="p-3 text-green-400">宽裕</td><td class="p-3">BLE 音频/通用</td></tr>
-              <tr><td class="p-3 font-mono">512 samples</td><td class="p-3 text-red-400">10.67ms</td><td class="p-3">32.0ms</td><td class="p-3 text-green-400">很宽裕</td><td class="p-3">非实时处理</td></tr>
-            </tbody>
-          </table>
-        </div>
+            <div class="overflow-x-auto mb-6">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-dark-700 text-left">
+                    <th class="p-3 text-slate-400 font-medium">半缓冲区</th>
+                    <th class="p-3 text-slate-400 font-medium">48kHz 延迟</th>
+                    <th class="p-3 text-slate-400 font-medium">16kHz 延迟</th>
+                    <th class="p-3 text-slate-400 font-medium">DSP 时间</th>
+                    <th class="p-3 text-slate-400 font-medium">适用场景</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-300">
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">32 samples</td><td class="p-3 text-green-400">0.67ms</td><td class="p-3">2.0ms</td><td class="p-3 text-red-400">很紧</td><td class="p-3">专业音频/ANC</td></tr>
+                  <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono">64 samples</td><td class="p-3 text-green-400">1.33ms</td><td class="p-3">4.0ms</td><td class="p-3 text-yellow-400">适中</td><td class="p-3">低延迟音乐处理</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">128 samples</td><td class="p-3">2.67ms</td><td class="p-3">8.0ms</td><td class="p-3 text-green-400">充裕</td><td class="p-3">语音处理</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono">256 samples</td><td class="p-3">5.33ms</td><td class="p-3">16.0ms</td><td class="p-3 text-green-400">宽裕</td><td class="p-3">BLE 音频/通用</td></tr>
+                  <tr><td class="p-3 font-mono">512 samples</td><td class="p-3 text-red-400">10.67ms</td><td class="p-3">32.0ms</td><td class="p-3 text-green-400">很宽裕</td><td class="p-3">非实时处理</td></tr>
+                </tbody>
+              </table>
+            </div>
 
-        <div class="callout callout-important">
-          <p class="text-sm text-slate-300"><strong class="text-purple-400">延迟计算公式：</strong>Latency = half_buffer_size / sample_rate。注意这是单程延迟 — 麦克风到处理完的总延迟要加上算法延迟（滤波器群延迟等）。ANC 通常要求 &lt; 2ms 总延迟，BLE LC3 编码要求约 7.5-20ms。</p>
+            <div class="callout callout-important">
+              <p class="text-sm text-slate-300"><strong class="text-purple-400">延迟计算公式：</strong>Latency = half_buffer_size / sample_rate。注意这是单程延迟 — 麦克风到处理完的总延迟要加上算法延迟（滤波器群延迟等）。ANC 通常要求 &lt; 2ms 总延迟，BLE LC3 编码要求约 7.5-20ms。</p>
+            </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>Buffer size ↔ Latency 是系统级决策</h4>
+              <p>ANC 需要总延迟 <2ms，BLE LC3 容忍 7.5-20ms。32 samples = 0.67ms，256 samples = 5.33ms——选错 buffer size 无法通过调代码修复，它是架构决策，级联影响 DSP 时间预算、功耗、感知质量。</p>
+            </div>
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你定延迟目标 AI 生成 DMA 配置</h4>
+              <p>"256 samples double buffer, circular DMA, half-complete interrupt"——描述清楚后 AI 生成 HAL_DMA_Init 和回调注册。你的价值在于选择正确的 buffer size。</p>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- 3.4 DMA Stream/Channel -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">3.4 DMA Stream 和 Channel 路由</h2>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">3.4 DMA Stream 和 Channel 路由</h2>
         <p class="text-slate-300 mb-4">STM32F4 有两个 DMA 控制器，每个有 8 个 Stream。每个 Stream 只能映射到特定的外设请求（Channel）。音频通常需要多个 Stream 同时工作。</p>
 
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
@@ -266,6 +306,20 @@ graph LR
 
         <div class="callout callout-warning mt-4">
           <p class="text-sm text-slate-300"><strong class="text-yellow-400">常见坑：Stream 冲突。</strong>同一个 Stream 不能同时用于两个请求。如果 SPI 和 I2S 都想用 DMA1 Stream1，只有一个能赢。解决方法：查看芯片 Reference Manual 的 DMA request mapping 表，提前规划。</p>
+        </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你规划分配表 AI 生成配置</h4>
+              <p>你列出"I2S 用 DMA1 Stream5 Channel0，SPI 用 DMA2 Stream3 Channel3"，AI 生成完整 DMA_Init 代码。但你必须查 Reference Manual 的 DMA request mapping 表来确保不冲突。</p>
+            </div>
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>芯片特定路由表需手动查阅</h4>
+              <p>SPI3_TX 和 I2S2_RX 可能都映射到 DMA1 Stream5——AI 不知道你的具体引脚分配。Stream 冲突会导致一个外设静默工作。这种 bug 只有查阅 RM 的 DMA request 表才能发现。</p>
+            </div>
+          </div>
         </div>
       </section>
 

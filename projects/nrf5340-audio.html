@@ -53,7 +53,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <div class="flex flex-wrap gap-2 mb-3">
@@ -72,6 +72,9 @@
 
       <!-- Dual Core Architecture -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">双核架构</h2>
         <p class="text-slate-300 mb-4">nRF5340 是双核 Cortex-M33：应用核跑应用逻辑 + 网络核跑 BLE 协议栈。两核通过 IPC（核间通信）传递音频数据。</p>
 
@@ -215,7 +218,21 @@ void audio_datapath_rx_handler(uint8_t *iso_data, size_t len) {
         <div class="callout callout-tip mt-4">
           <p class="text-sm text-slate-300"><strong class="text-green-400">为什么学这个？</strong>nRF5340 Audio 是 Nordic 官方的参考实现，代码质量高、文档完善。如果你做智能音频设备，大概率会用 Nordic 芯片 + Zephyr + BLE LE Audio。这个项目直接就是你未来的技术栈。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">逐行精读</span>
+          <h4>双核 IPC 零拷贝通信是核心</h4>
+          <p>应用核和网络核通过共享内存交换音频数据——这个零拷贝 IPC 模式是 nRF5340 音频系统的灵魂。理解完整管线你就掌握了 BLE Audio。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">架构借鉴</span>
+          <h4>Zephyr + Nordic 的工业级方案</h4>
+          <p>nRF5340 Audio 是 Nordic 官方参考实现。如果你未来做 BLE 音频产品，Kconfig 配置、Devicetree overlay、电源管理策略直接可以复用。</p>
+        </div>
+        </div>
+      </div></section>
 
       <!-- Key Lessons -->
       <section class="mb-12 fade-in">

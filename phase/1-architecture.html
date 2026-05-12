@@ -61,7 +61,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Header -->
       <div class="fade-in mb-12">
@@ -72,41 +72,54 @@
 
       <!-- 1.1 Cortex-M 家族 -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.1 Cortex-M 家族与选型</h2>
-        <p class="text-slate-300 mb-4">Cortex-M 系列从低功耗的 M0 到高性能的 M55，覆盖不同应用场景。作为音频开发者，你最可能接触 M4F、M7 和 M33。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">1.1 Cortex-M 家族与选型</h2>
+            <p class="text-slate-300 mb-4">Cortex-M 系列从低功耗的 M0 到高性能的 M55，覆盖不同应用场景。作为音频开发者，你最可能接触 M4F、M7 和 M33。</p>
 
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm border-collapse">
-            <thead>
-              <tr class="border-b border-dark-700 text-left">
-                <th class="p-3 text-slate-400 font-medium">内核</th>
-                <th class="p-3 text-slate-400 font-medium">流水线</th>
-                <th class="p-3 text-slate-400 font-medium">FPU</th>
-                <th class="p-3 text-slate-400 font-medium">DSP</th>
-                <th class="p-3 text-slate-400 font-medium">典型芯片</th>
-                <th class="p-3 text-slate-400 font-medium">音频适用</th>
-              </tr>
-            </thead>
-            <tbody class="text-slate-300">
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M0/M0+</td><td class="p-3">3-stage</td><td class="p-3">无</td><td class="p-3">无</td><td class="p-3">STM32G0, nRF51</td><td class="p-3 text-red-400">不适合</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M3</td><td class="p-3">3-stage</td><td class="p-3">无</td><td class="p-3">无</td><td class="p-3">STM32F1, LM3S</td><td class="p-3 text-yellow-400">勉强</td></tr>
-              <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono text-blue-400">M4F</td><td class="p-3">3-stage</td><td class="p-3">SP 单精度</td><td class="p-3">SIMD</td><td class="p-3">STM32F4, nRF52</td><td class="p-3 text-green-400">适合入门</td></tr>
-              <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono text-blue-400">M7</td><td class="p-3">6-stage</td><td class="p-3">SP/DP</td><td class="p-3">SIMD</td><td class="p-3">STM32H7, i.MX RT</td><td class="p-3 text-green-400">高性能首选</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M33</td><td class="p-3">3-stage</td><td class="p-3">SP</td><td class="p-3">SIMD</td><td class="p-3">nRF53, STM32L5</td><td class="p-3 text-green-400">低功耗+安全</td></tr>
-              <tr><td class="p-3 font-mono text-blue-400">M55</td><td class="p-3">—</td><td class="p-3">SP/DP</td><td class="p-3">Helium</td><td class="p-3">i.MX RT700</td><td class="p-3 text-green-400">AI+音频</td></tr>
-            </tbody>
-          </table>
-        </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-dark-700 text-left">
+                    <th class="p-3 text-slate-400 font-medium">内核</th>
+                    <th class="p-3 text-slate-400 font-medium">流水线</th>
+                    <th class="p-3 text-slate-400 font-medium">FPU</th>
+                    <th class="p-3 text-slate-400 font-medium">DSP</th>
+                    <th class="p-3 text-slate-400 font-medium">典型芯片</th>
+                    <th class="p-3 text-slate-400 font-medium">音频适用</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-300">
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M0/M0+</td><td class="p-3">3-stage</td><td class="p-3">无</td><td class="p-3">无</td><td class="p-3">STM32G0, nRF51</td><td class="p-3 text-red-400">不适合</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M3</td><td class="p-3">3-stage</td><td class="p-3">无</td><td class="p-3">无</td><td class="p-3">STM32F1, LM3S</td><td class="p-3 text-yellow-400">勉强</td></tr>
+                  <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono text-blue-400">M4F</td><td class="p-3">3-stage</td><td class="p-3">SP 单精度</td><td class="p-3">SIMD</td><td class="p-3">STM32F4, nRF52</td><td class="p-3 text-green-400">适合入门</td></tr>
+                  <tr class="border-b border-dark-700/50 bg-blue-500/5"><td class="p-3 font-mono text-blue-400">M7</td><td class="p-3">6-stage</td><td class="p-3">SP/DP</td><td class="p-3">SIMD</td><td class="p-3">STM32H7, i.MX RT</td><td class="p-3 text-green-400">高性能首选</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 font-mono text-blue-400">M33</td><td class="p-3">3-stage</td><td class="p-3">SP</td><td class="p-3">SIMD</td><td class="p-3">nRF53, STM32L5</td><td class="p-3 text-green-400">低功耗+安全</td></tr>
+                  <tr><td class="p-3 font-mono text-blue-400">M55</td><td class="p-3">—</td><td class="p-3">SP/DP</td><td class="p-3">Helium</td><td class="p-3">i.MX RT700</td><td class="p-3 text-green-400">AI+音频</td></tr>
+                </tbody>
+              </table>
+            </div>
 
-        <div class="callout callout-info mt-4">
-          <p class="text-sm text-slate-300"><strong class="text-blue-400">音频选型关键：</strong>FPU 是必须的 — 音频 DSP 大量浮点运算。M4F 的单精度 FPU 已经够用；M7 的双精度 FPU 和 6 级流水线提供更高性能余量，适合复杂算法（如多通道 ANC）。</p>
+            <div class="callout callout-info mt-4">
+              <p class="text-sm text-slate-300"><strong class="text-blue-400">音频选型关键：</strong>FPU 是必须的 — 音频 DSP 大量浮点运算。M4F 的单精度 FPU 已经够用；M7 的双精度 FPU 和 6 级流水线提供更高性能余量，适合复杂算法（如多通道 ANC）。</p>
+            </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你选架构，AI 写配置</h4>
+              <p>选 M4F 还是 M33、要不要 FPU、RAM 需要多大——这些架构决策只有你能做。选定之后，Device Tree / Kconfig / CubeMX 配置可以让 AI 生成。</p>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- 1.2 编程模型 -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.2 编程模型：寄存器与模式</h2>
-        <p class="text-slate-300 mb-4">Cortex-M 只有两种特权模式：<strong>Handler 模式</strong>（中断服务函数中）和 <strong>Thread 模式</strong>（普通代码）。每种模式有 MSP（主栈指针）和 PSP（进程栈指针）。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">1.2 编程模型：寄存器与模式</h2>
+            <p class="text-slate-300 mb-4">Cortex-M 只有两种特权模式：<strong>Handler 模式</strong>（中断服务函数中）和 <strong>Thread 模式</strong>（普通代码）。每种模式有 MSP（主栈指针）和 PSP（进程栈指针）。</p>
 
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
           <pre class="mermaid">
@@ -153,12 +166,23 @@ __set_BASEPRI(5 << 4);  // 屏蔽优先级 ≥ 5 的中断 (M4 优先级 0最高
         <div class="callout callout-tip mt-4">
           <p class="text-sm text-slate-300"><strong class="text-green-400">实践建议：</strong>裸机程序只用 MSP 和特权模式就够了。当开始学 FreeRTOS 时，RTOS 会切到 PSP 给每个任务独立栈空间。PRIMASK 和 BASEPRI 在音频中断保护中非常重要。</p>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-auto">
+              <span class="ai-note-badge">可淡化</span>
+              <h4>寄存器位操作 AI 随手写</h4>
+              <p>MODER &= ~(3U << (4*2)) 这类位操作模式是标准样板。理解原理即可，具体写法交给 AI。你的时间花在理解"为什么这样配置"上。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 1.3 NVIC -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.3 NVIC 嵌套向量中断控制器</h2>
-        <p class="text-slate-300 mb-4">NVIC 是 Cortex-M 的核心组件。与 OS 框架中的中断不同，这里是硬件级别的中断嵌套和优先级管理。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">1.3 NVIC 嵌套向量中断控制器</h2>
+            <p class="text-slate-300 mb-4">NVIC 是 Cortex-M 的核心组件。与 OS 框架中的中断不同，这里是硬件级别的中断嵌套和优先级管理。</p>
 
         <div class="grid md:grid-cols-2 gap-4 mb-6">
           <div class="bg-dark-800 rounded-lg p-4 border border-dark-700">
@@ -233,6 +257,20 @@ void DMA1_Stream1_IRQHandler(void) {
             <div class="ann-item" data-ann="③">
               <span class="ann-num">③</span>
               <span>SysTick 必须优先级最低！否则 1ms 的系统时钟中断会打断音频 DMA 回调，造成延迟抖动。这是初学者最常犯的错误。</span>
+            </div>
+          </div>
+        </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>优先级策略是工程判断</h4>
+              <p>DMA 抢占 SysTick 的排序不是代码问题，是架构决策。AI 可以生成 NVIC_SetPriority() 调用，但它不知道你的 BLE 栈和音频 DMA 会冲突。只有你能判断系统中断优先级的全局合理性。</p>
+            </div>
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你定策略 AI 写实现</h4>
+              <p>你描述"DMA 优先级 5，SAI 优先级 6，SysTick 最低"，Claude 生成完整 NVIC 初始化。瓶颈是你能否做出正确的优先级规划。</p>
             </div>
           </div>
         </div>

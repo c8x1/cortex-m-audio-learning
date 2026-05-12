@@ -58,7 +58,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <span class="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded">阶段四 · 2-3 周</span>
@@ -68,6 +68,9 @@
 
       <!-- 4.1 裸机 vs RTOS -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">4.1 Super-loop vs RTOS</h2>
 
         <div class="code-walkthrough">
@@ -127,10 +130,23 @@ void main(void) {
         <div class="callout callout-tip mt-4">
           <p class="text-sm text-slate-300"><strong class="text-green-400">音频任务永远是最高优先级。</strong>RTOS 的抢占式调度保证：当 DMA 半传输中断通过 TaskNotify 唤醒音频任务时，它会立即抢占 BLE 和 UI 任务。这比 super-loop 可靠得多。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">不可替代</span>
+          <h4>任务划分和优先级是架构决策</h4>
+          <p>音频任务必须在最高优先级、永远不能阻塞——这是设计原则不是代码。AI 可以创建任务，但只有你知道为什么音频任务必须抢占一切。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 4.2 FreeRTOS 核心 -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">4.2 FreeRTOS 核心概念</h2>
         <p class="text-slate-300 mb-4">FreeRTOS 是最广泛使用的嵌入式 RTOS。InfiniTime 智能手表就是基于 FreeRTOS 的。</p>
 
@@ -242,10 +258,28 @@ void audio_pipeline_init(void) {
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-auto">
+          <span class="ai-note-badge">可淡化</span>
+          <h4>FreeRTOS API 签名 AI 随手生成</h4>
+          <p>xTaskCreate、xSemaphoreGive、vTaskDelay——这些标准 API 调用 AI 生成正确且高效。学习投资应放在理解何时用 Queue、何时用 Semaphore、何时用 StreamBuffer。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">人机协作</span>
+          <h4>你设计数据流 AI 实现 ISR-safe 代码</h4>
+          <p>StreamBuffer 的零拷贝语义完美适合音频。你描述"ISR 中发 256 bytes，任务端等满 512 bytes"，AI 生成完整模式。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 4.3 Zephyr -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">4.3 Zephyr RTOS — 现代替代方案</h2>
         <p class="text-slate-300 mb-4">Zephyr 是 Linux 基金会主导的 RTOS，Nordic（nRF 系列）芯片的首选 RTOS。与 FreeRTOS 的最大区别：Device Tree、Kconfig、统一的设备驱动模型。</p>
 
@@ -312,10 +346,28 @@ CONFIG_LOG_BACKEND_RTT=y</code></pre>
         <div class="callout callout-info mt-4">
           <p class="text-sm text-slate-300"><strong class="text-blue-400">选型建议：</strong>如果目标是 Nordic nRF53 系列（智能眼镜很可能用这个），选 Zephyr。如果目标是 STM32，FreeRTOS 生态更成熟。两个都要了解，因为面试和开源项目中两个都会遇到。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">人机协作</span>
+          <h4>Device Tree 描述硬件 AI 生成配置</h4>
+          <p>"nRF5340，I2S master，2 个 PDM 麦克风"——你用自然语言描述硬件，AI 生成 Device Tree overlay 和 Kconfig。</p>
+        </div>
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">不可替代</span>
+          <h4>Zephyr vs FreeRTOS 选型是架构决策</h4>
+          <p>nRF = Zephyr，STM32 = FreeRTOS。选型基于芯片厂商支持、社区生态、项目规模——这是技术战略不是代码选择。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- 4.4 Context Switch -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">4.4 上下文切换与实时保证</h2>
         <p class="text-slate-300 mb-4">RTOS 通过 PendSV 中断实现上下文切换。理解这个过程有助于估算音频任务的最坏响应时间。</p>
 
@@ -341,7 +393,17 @@ sequenceDiagram
         <div class="callout callout-important">
           <p class="text-sm text-slate-300"><strong class="text-purple-400">实时保证：</strong>从 DMA 中断触发到音频任务开始执行，总延迟约 3-5μs（M4 @ 168MHz）。相比 5.33ms 的音频块处理时间，这个开销可以忽略。但前提是：音频任务的优先级最高，且不能在音频任务中调用阻塞 API。</p>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">不可替代</span>
+          <h4>portYIELD_FROM_ISR 是正确性门槛</h4>
+          <p>这个宏决定了 RTOS 是否立即切换到更高优先级的音频任务。用错变体音频时序会静默出错。这不是样板代码——它是实时系统的正确性门槛。</p>
+        </div>
+        </div>
+      </div>
+    </section></section>
 
       <!-- Related Projects -->
       <section class="mb-12 fade-in">

@@ -59,7 +59,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Project Overview -->
       <div class="fade-in mb-12">
@@ -79,6 +79,9 @@
 
       <!-- Architecture -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">架构总览</h2>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
           <pre class="mermaid">
@@ -338,7 +341,21 @@ private:
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">逐行精读</span>
+          <h4>Ping-Pong DMA 回调值得逐行理解</h4>
+          <p>libDaisy 的 SAI + DMA Ping-Pong 实现是音频驱动层的黄金参考。HalfCplt / FullCplt 回调的时序、buffer 指针切换、Cache 维护——每一行都有工程含义。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">架构借鉴</span>
+          <h4>Codec 驱动的分层设计</h4>
+          <p>libDaisy 把 Codec 配置（I2C）和音频传输（SAI）严格分离。这种控制面/数据面分离的架构模式在所有音频系统中通用。</p>
+        </div>
+        </div>
+      </div></section>
 
       <!-- What We Learned -->
       <section class="mb-12 fade-in">

@@ -54,7 +54,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <div class="flex flex-wrap gap-2 mb-3">
@@ -73,6 +73,9 @@
 
       <!-- Audio Graph -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">Audio Graph 设计模式</h2>
         <p class="text-slate-300 mb-4">Teensy Audio Library 的核心创新是 "音频图"（Audio Graph）。每个 DSP 模块是一个节点，节点之间通过连接传输音频数据块。用户在 GUI 中拖线连接模块，框架自动调度执行顺序。</p>
 
@@ -229,7 +232,21 @@ AudioConnection        patchCord2(eq_filter, 0, i2s_out, 0); // EQ → 输出</c
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">架构借鉴</span>
+          <h4>图形化音频管线的设计思想</h4>
+          <p>Teensy Audio 的 AudioConnection 对象图模式（节点+连线）是音频框架的经典设计。理解这个模式后，你可以在任何平台上复刻。</p>
+        </div>
+        <div class="ai-note ai-note-auto">
+          <span class="ai-note-badge">了解即可</span>
+          <h4>具体 effect 实现可粗读</h4>
+          <p>Teensy Audio 库中的 100+ effect 节点实现是标准 DSP 算法。如果你理解了 DaisySP 的核心算法，这里大部分是已知模式的重复。</p>
+        </div>
+        </div>
+      </div></section>
 
       <!-- Key Lessons -->
       <section class="mb-12 fade-in">

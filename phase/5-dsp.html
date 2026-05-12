@@ -58,7 +58,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <span class="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-1 rounded">阶段五 · 3-4 周</span>
@@ -68,35 +68,48 @@
 
       <!-- 5.1 CMSIS-DSP -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">5.1 CMSIS-DSP — ARM 官方 DSP 库</h2>
-        <p class="text-slate-300 mb-4">CMSIS-DSP 是 ARM 提供的免费 DSP 库，针对 Cortex-M 的 FPU 和 SIMD 指令做了汇编级优化。这是嵌入式音频处理的标准工具。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">5.1 CMSIS-DSP — ARM 官方 DSP 库</h2>
+            <p class="text-slate-300 mb-4">CMSIS-DSP 是 ARM 提供的免费 DSP 库，针对 Cortex-M 的 FPU 和 SIMD 指令做了汇编级优化。这是嵌入式音频处理的标准工具。</p>
 
-        <div class="overflow-x-auto mb-6">
-          <table class="w-full text-sm border-collapse">
-            <thead>
-              <tr class="border-b border-dark-700 text-left">
-                <th class="p-3 text-slate-400 font-medium">功能类别</th>
-                <th class="p-3 text-slate-400 font-medium">常用函数</th>
-                <th class="p-3 text-slate-400 font-medium">音频应用</th>
-              </tr>
-            </thead>
-            <tbody class="text-slate-300">
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">滤波器</td><td class="p-3 font-mono text-xs">arm_biquad_cascade_df1_f32<br/>arm_fir_f32</td><td class="p-3">EQ、分频、低通/高通</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">FFT</td><td class="p-3 font-mono text-xs">arm_rfft_fast_f32<br/>arm_cfft_f32</td><td class="p-3">频谱分析、频率域处理</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">数学</td><td class="p-3 font-mono text-xs">arm_mult_f32<br/>arm_scale_f32</td><td class="p-3">增益、混音、向量运算</td></tr>
-              <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">统计</td><td class="p-3 font-mono text-xs">arm_rms_f32<br/>arm_power_f32</td><td class="p-3">RMS 电平、VU 表</td></tr>
-              <tr><td class="p-3 text-blue-400">矩阵</td><td class="p-3 font-mono text-xs">arm_mat_mult_f32</td><td class="p-3">波束成形、空间音频</td></tr>
-            </tbody>
-          </table>
+            <div class="overflow-x-auto mb-6">
+              <table class="w-full text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-dark-700 text-left">
+                    <th class="p-3 text-slate-400 font-medium">功能类别</th>
+                    <th class="p-3 text-slate-400 font-medium">常用函数</th>
+                    <th class="p-3 text-slate-400 font-medium">音频应用</th>
+                  </tr>
+                </thead>
+                <tbody class="text-slate-300">
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">滤波器</td><td class="p-3 font-mono text-xs">arm_biquad_cascade_df1_f32<br/>arm_fir_f32</td><td class="p-3">EQ、分频、低通/高通</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">FFT</td><td class="p-3 font-mono text-xs">arm_rfft_fast_f32<br/>arm_cfft_f32</td><td class="p-3">频谱分析、频率域处理</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">数学</td><td class="p-3 font-mono text-xs">arm_mult_f32<br/>arm_scale_f32</td><td class="p-3">增益、混音、向量运算</td></tr>
+                  <tr class="border-b border-dark-700/50"><td class="p-3 text-blue-400">统计</td><td class="p-3 font-mono text-xs">arm_rms_f32<br/>arm_power_f32</td><td class="p-3">RMS 电平、VU 表</td></tr>
+                  <tr><td class="p-3 text-blue-400">矩阵</td><td class="p-3 font-mono text-xs">arm_mat_mult_f32</td><td class="p-3">波束成形、空间音频</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你指定处理链 AI 生成完整代码</h4>
+              <p>"3-band parametric EQ + compressor + float32，256 samples per block"——描述清楚后 AI 能生成完整的初始化、状态分配、per-block 处理代码。你的音频知识 × AI 的 API 熟练度 = 几分钟出可用的 DSP 代码。</p>
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- 5.2 Biquad EQ -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">5.2 Biquad 滤波器 — 音频 EQ 的基础</h2>
-        <p class="text-slate-300 mb-4">Biquad（双二阶）滤波器是音频 EQ 的基本单元。每个频段的 EQ 就是一个 Biquad 滤波器。多个级联 = 多段 EQ。</p>
+        <div class="ai-era-layout">
+          <div class="ai-era-main">
+            <h2 class="text-2xl font-bold text-white mb-4">5.2 Biquad 滤波器 — 音频 EQ 的基础</h2>
+            <p class="text-slate-300 mb-4">Biquad（双二阶）滤波器是音频 EQ 的基本单元。每个频段的 EQ 就是一个 Biquad 滤波器。多个级联 = 多段 EQ。</p>
 
-        <div class="code-walkthrough">
+            <div class="code-walkthrough">
           <div class="file-header">
             <span class="file-path">audio_eq.c — 3 段参数 EQ 实现</span>
           </div>
@@ -188,9 +201,21 @@ void audio_callback(int16_t *in, int16_t *out, uint32_t size) {
             </div>
           </div>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>EQ 类型 + Q 值的听觉判断是纯领域知识</h4>
+              <p>Peaking、Low-shelf、High-shelf、Bandpass——这些不是代码概念，是音频工程数十年的积累。Q=0.707 是 Butterworth 平坦响应，Q>1 会产生谐振峰。AI 能生成系数计算代码，但如果你分不清滤波器类型，EQ 不会对。</p>
+            </div>
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你描述滤波器规格 AI 生成系数</h4>
+              <p>"Peaking EQ, center 1kHz, Q=1.0, gain +3dB at 48kHz"——AI 从 Audio EQ Cookbook 公式生成 a0-a2, b0-b2 系数。你提供音频规格，AI 做数学计算。</p>
+            </div>
+          </div>
+        </div>
       </section>
-
-      <!-- 5.3 Dynamic Range Compression -->
       <section class="mb-12 fade-in">
         <h2 class="text-2xl font-bold text-white mb-4">5.3 动态范围压缩（DRC）</h2>
         <p class="text-slate-300 mb-4">DRC 用于自动控制音量 — 声音太大时压低，太小时提升。助听器、TWS 耳机、智能眼镜都用得到。</p>

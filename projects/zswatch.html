@@ -50,7 +50,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Project Overview Card -->
       <div class="fade-in mb-10">
@@ -83,6 +83,7 @@
 
       <!-- Architecture Diagram -->
       <section class="fade-in mb-10">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-xl font-bold text-white mb-4">系统架构</h2>
         <p class="text-slate-400 text-sm mb-4">ZSWatch 利用了 nRF5340 的双核架构：应用核运行 Zephyr + LVGL UI，网络核运行 BLE 协议栈。Zephyr 的 Device Tree 机制让硬件配置完全声明化。</p>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
@@ -368,7 +369,8 @@ void on_imu_data(const struct device *dev,
             <li class="flex gap-2"><span class="text-blue-400 font-bold">5.</span> Zephyr 的学习曲线更陡，但在复杂项目中（如双核 BLE Audio）能显著降低工程复杂度</li>
           </ul>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-collab"><span class="ai-note-badge">架构借鉴</span><h4>Zephyr + nRF 的完整产品架构</h4><p>ZSWatch 是 Zephyr RTOS 在智能手表上的完整实现。如果走 Nordic 生态，这个项目架构就是你的起点。</p></div>
+<div class="ai-note ai-note-auto"><span class="ai-note-badge">了解即可</span><h4>传感器驱动代码可粗读</h4><p>BMA421 等传感器 I2C 驱动是标准样板。理解 Zephyr 传感器 API 框架比阅读具体驱动更有价值。</p></div></div></div></section>
 
       <!-- Navigation -->
       <div class="fade-in flex items-center justify-between mt-12 pt-6 border-t border-dark-700">

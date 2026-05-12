@@ -50,7 +50,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Project Overview Card -->
       <div class="fade-in mb-10">
@@ -71,6 +71,7 @@
 
       <!-- Boot Sequence Introduction -->
       <section class="fade-in mb-10">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-2xl font-bold text-white mb-4">Cortex-M 启动序列</h2>
         <p class="text-slate-300 mb-4">当你按下复位按钮或上电时，Cortex-M 处理器执行一段固定的硬件流程，然后跳转到软件世界。这段流程发生在 <code class="text-blue-400">main()</code> 之前，是所有嵌入式程序的基础。</p>
         <div class="callout callout-info">
@@ -295,7 +296,8 @@ SECTIONS                                <span class="ann-marker" data-note="SECT
             <li class="flex gap-2"><span class="text-blue-400 font-bold">5.</span> .data 的 VMA 在 RAM、LMA 在 Flash，需要运行时复制；.bss 只在 RAM，需要清零</li>
           </ul>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-auto"><span class="ai-note-badge">了解即可</span><h4>启动汇编样板可快速过</h4><p>startup.s 的向量表定义和 .data/.bss 初始化是标准样板，AI 生成零错误。理解概念即可。</p></div>
+<div class="ai-note ai-note-collab"><span class="ai-note-badge">架构借鉴</span><h4>最小可用的裸机框架</h4><p>这个项目展示了从 Reset_Handler 到 main() 的最短路径。理解后用 AI 生成新芯片启动代码只需描述关键参数。</p></div></div></div></section>
 
       <!-- Navigation -->
       <div class="fade-in flex items-center justify-between mt-12 pt-6 border-t border-dark-700">

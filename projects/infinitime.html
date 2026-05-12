@@ -50,7 +50,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <!-- Project Overview Card -->
       <div class="fade-in mb-10">
@@ -83,6 +83,7 @@
 
       <!-- Architecture Diagram -->
       <section class="fade-in mb-10">
+<div class="ai-era-layout"><div class="ai-era-main">
         <h2 class="text-xl font-bold text-white mb-4">系统架构</h2>
         <p class="text-slate-400 text-sm mb-4">InfiniTime 采用多任务架构：SystemTask 是总指挥，通过消息队列协调各子系统。这是典型的嵌入式"星形任务"模式。</p>
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
@@ -328,7 +329,8 @@ void EnterLowPower(void) {
             <li class="flex gap-2"><span class="text-blue-400 font-bold">5.</span> 消息队列解耦了中断处理和任务逻辑——中断只发消息，不做耗时操作（如 SPI 传输）</li>
           </ul>
         </div>
-      </section>
+      </div><div class="ai-era-sidebar"><div class="ai-note ai-note-must"><span class="ai-note-badge">逐行精读</span><h4>FreeRTOS 任务架构值得逐行研究</h4><p>InfiniTime 的任务划分是智能穿戴设备的教科书级实现。每个任务的优先级、栈大小、消息队列选择都有工程考量。</p></div>
+<div class="ai-note ai-note-collab"><span class="ai-note-badge">架构借鉴</span><h4>LVGL + RTOS 的集成模式</h4><p>LVGL 在 RTOS 中的线程模型是这个项目的精华。AI 能写 LVGL 代码，但多线程集成模式需要你理解。</p></div></div></div></section>
 
       <!-- Navigation -->
       <div class="fade-in flex items-center justify-between mt-12 pt-6 border-t border-dark-700">

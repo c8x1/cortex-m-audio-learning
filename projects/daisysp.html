@@ -54,7 +54,7 @@
   </header>
 
   <main class="main-content">
-    <div class="max-w-4xl mx-auto px-6 py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto px-6 py-12 lg:py-16">
 
       <div class="fade-in mb-12">
         <div class="flex flex-wrap gap-2 mb-3">
@@ -73,6 +73,9 @@
 
       <!-- Design Pattern -->
       <section class="mb-12 fade-in">
+      <div class="ai-era-layout">
+        <div class="ai-era-main">
+
         <h2 class="text-2xl font-bold text-white mb-4">设计模式：Process() 单采样处理</h2>
         <p class="text-slate-300 mb-4">DaisySP 的每个 DSP 模块都遵循统一接口：<code class="text-blue-400">Init()</code> 初始化 + <code class="text-blue-400">Process()</code> 处理单个采样。这个设计简洁优雅，便于组合。</p>
 
@@ -219,7 +222,21 @@ void MoogLadder::Init(float sample_rate) {
             </div>
           </div>
         </div>
-      </section>
+      
+        </div>
+        <div class="ai-era-sidebar">
+        <div class="ai-note ai-note-must">
+          <span class="ai-note-badge">逐行精读</span>
+          <h4>DSP 算法的定点/浮点处理值得深究</h4>
+          <p>DaisySP 的 Oscillator、Biquad、ADSR 实现展示了 Cortex-M 上高效 DSP 的写法——polyblep 抗混叠、状态变量滤波器拓扑。这些算法原理 AI 无法替你理解。</p>
+        </div>
+        <div class="ai-note ai-note-collab">
+          <span class="ai-note-badge">架构借鉴</span>
+          <h4>模块化音频处理链</h4>
+          <p>DaisySP 的 Process() 统一接口让 DSP 模块可以自由组合。你描述信号流图，AI 生成 Process chain 代码。</p>
+        </div>
+        </div>
+      </div></section>
 
       <!-- Key Lessons -->
       <section class="mb-12 fade-in">
