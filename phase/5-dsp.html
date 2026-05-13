@@ -218,7 +218,9 @@ void audio_callback(int16_t *in, int16_t *out, uint32_t size) {
       </section>
       <section class="mb-12 fade-in">
         <h2 class="text-2xl font-bold text-white mb-4">5.3 动态范围压缩（DRC）</h2>
-        <p class="text-slate-300 mb-4">DRC 用于自动控制音量 — 声音太大时压低，太小时提升。助听器、TWS 耳机、智能眼镜都用得到。</p>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <p class="text-slate-300 mb-4">DRC 用于自动控制音量 — 声音太大时压低，太小时提升。助听器、TWS 耳机、智能眼镜都用得到。</p>
 
         <div class="code-walkthrough">
           <div class="file-header">
@@ -281,11 +283,22 @@ compressor_t voice_compressor = {
             </div>
           </div>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>Attack/Release 来自心理声学</h4>
+              <p>5ms attack + 50ms release 是语音处理的经典参数——但这不是代码知识，是几十年的听觉工程积累。Attack 太快 = 泵浦效应失真，Release 太快 = 呼吸感。AI 能生成压缩器代码，但无法替你判断"这个声音压得对不对"。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 5.4 ANC Basics -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">5.4 主动降噪（ANC）基础</h2>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <h2 class="text-2xl font-bold text-white mb-4">5.4 主动降噪（ANC）基础</h2>
         <p class="text-slate-300 mb-4">ANC 是智能音频设备的核心技术。原理：用参考麦克风采集环境噪声，生成反相信号叠加到输出，实现降噪。Feedforward ANC 是最简单的入门方案。</p>
 
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
@@ -366,11 +379,27 @@ float nlms_process(nlms_filter_t *f, float ref, float error) {
         <div class="callout callout-warning mt-4">
           <p class="text-sm text-slate-300"><strong class="text-yellow-400">ANC 的挑战：</strong>① 延迟必须极低（< 2ms），否则反相信号和实际噪声不同步；② 声学路径变化（耳机位置移动）要求滤波器实时适应；③ 反馈稳定性（Feedforward 没有这个问题，Feedback ANC 有）。</p>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>延迟约束 + MIPS 预算是可行性分析</h4>
+              <p>M4F 做 64-tap NLMS@48kHz 需要 ~394 MIPS，但 M4F 只有 ~250 DMIPS。这个算术决定"做不了"，不是代码问题。ANC 的延迟必须 <2ms，这个硬约束决定了 buffer size、tap 数、MCU 选型。AI 无法做这种系统级可行性判断。</p>
+            </div>
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你提供约束 AI 实现 NLMS</h4>
+              <p>"NLMS, 32 taps, float32, 16kHz, step=0.01"——你给定约束，AI 能生成完整的自适应滤波器实现。瓶颈是你能否选择正确的 tap 数和步长。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 5.5 Beamforming -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">5.5 麦克风阵列与波束成形</h2>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <h2 class="text-2xl font-bold text-white mb-4">5.5 麦克风阵列与波束成形</h2>
         <p class="text-slate-300 mb-4">智能眼镜通常有 2-4 个麦克风做波束成形 — 增强 speaking 方向的声音，抑制其他方向。核心是延时叠加（Delay-and-Sum）。</p>
 
         <div class="code-walkthrough">
@@ -408,6 +437,15 @@ void calc_steering_delays(float angle_deg, int *delays,
         delays[m] = (int)(delay_sec * SAMPLE_RATE + 0.5f);
     }
 }</code></pre>
+          </div>
+        </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你提供物理约束 AI 实现 DSP 管线</h4>
+              <p>mic 间距 4cm、声速 343m/s、目标方向 0°——你提供物理参数，AI 生成延时叠加波束成形代码。波束宽度和旁瓣抑制的计算也可以委托 AI。你的价值在于理解"为什么需要 4 个 mic 而不是 2 个"。</p>
+            </div>
           </div>
         </div>
       </section>

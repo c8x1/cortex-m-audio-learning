@@ -278,7 +278,9 @@ void DMA1_Stream1_IRQHandler(void) {
 
       <!-- 1.4 启动流程 -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.4 从上电到 main()</h2>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <h2 class="text-2xl font-bold text-white mb-4">1.4 从上电到 main()</h2>
         <p class="text-slate-300 mb-4">MCU 上电后并不是直接执行 main()。理解这个过程对调试硬故障（HardFault）和编写可靠代码至关重要。</p>
 
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
@@ -365,11 +367,22 @@ void Reset_Handler(void) {
         <div class="callout callout-warning mt-4">
           <p class="text-sm text-slate-300"><strong class="text-yellow-400">常见坑：</strong>栈空间不够用。如果全局变量太多（.bss 和 .data）或递归太深，栈指针会溢出到非法内存区域，触发 HardFault。音频缓冲区特别大（如 48kHz × 2ch × 2bytes × 256samples = 256KB），一定要放在静态变量区或使用 heap。</p>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>HardFault 时你要知道 PC 怎么来的</h4>
+              <p>凌晨 3 点面对 HardFault 地址 0x08001234，你需要知道去 .map 文件查函数、去反汇编查指令。启动流程、向量表、栈帧布局是调试的基石。AI 无法 attach SWD 探针帮你读 CFSR 寄存器。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 1.5 Linker Script -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.5 Linker Script — 内存地图</h2>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <h2 class="text-2xl font-bold text-white mb-4">1.5 Linker Script — 内存地图</h2>
         <p class="text-slate-300 mb-4">Linker Script (.ld) 定义了程序的内存布局。它告诉链接器：代码放哪里、数据放哪里、栈有多大。这对音频开发特别重要，因为需要精确控制大块音频缓冲区放哪里。</p>
 
         <div class="code-walkthrough">
@@ -425,11 +438,27 @@ SECTIONS {
             </div>
           </div>
         </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-collab">
+              <span class="ai-note-badge">人机协作</span>
+              <h4>你规划内存布局 AI 写 .ld 文件</h4>
+              <p>你决定"音频缓冲放 SRAM，查找表放 CCMRAM，栈大小 4K"，AI 生成对应的 MEMORY 和 SECTIONS 定义。关键是你的布局规划能力。</p>
+            </div>
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>总线仲裁是系统级决策</h4>
+              <p>CCMRAM vs SRAM 的选择影响 DMA 和 CPU 的竞争。这种芯片特定的内存架构知识是 AI 无法替代的——它不知道你的 DMA stream 和 CPU 同时访问哪个 bank。</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- 1.6 Bus Matrix -->
       <section class="mb-12 fade-in">
-        <h2 class="text-2xl font-bold text-white mb-4">1.6 总线矩阵与内存架构</h2>
+
+        <div class="ai-era-layout">
+          <div class="ai-era-main">        <h2 class="text-2xl font-bold text-white mb-4">1.6 总线矩阵与内存架构</h2>
         <p class="text-slate-300 mb-4">理解总线矩阵对音频性能至关重要：CPU、DMA、外设通过总线矩阵访问内存。如果多条总线同时访问同一个 RAM 区域，会产生等待状态（wait state），影响实时性。</p>
 
         <div class="bg-dark-800 rounded-xl p-6 border border-dark-700 mb-6">
@@ -458,6 +487,15 @@ graph LR
 
         <div class="callout callout-important">
           <p class="text-sm text-slate-300"><strong class="text-purple-400">音频优化策略：</strong>让 CPU 用 CCMRAM（代码/查找表），DMA 用 SRAM（音频缓冲区）。这样两条总线并行工作，零等待。libDaisy 项目就用了这个策略 — 我们在源码走读中会看到。</p>
+        </div>
+          </div>
+          <div class="ai-era-sidebar">
+            <div class="ai-note ai-note-must">
+              <span class="ai-note-badge">不可替代</span>
+              <h4>总线冲突是音频性能瓶颈</h4>
+              <p>DMA 和 CPU 同时访问同一个 RAM bank 的竞争需要你手动规避。这不是代码问题而是硬件拓扑问题。让 CPU 用 CCMRAM、DMA 用 SRAM 的策略需要理解总线矩阵——这正是 libDaisy 等项目的核心优化。</p>
+            </div>
+          </div>
         </div>
       </section>
 
